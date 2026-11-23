@@ -43,7 +43,6 @@
       position: relative;
     }
 
-    /* لایه کنترلی پس‌زمینه برای حفظ رسمی بودن و خوانایی متن */
     .site-bg-layer {
       position: fixed;
       inset: 0;
@@ -311,6 +310,12 @@
       gap: 14px;
     }
 
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
     .item-card {
       background: #fff;
       border: 1px solid var(--border);
@@ -557,6 +562,7 @@
 
         <nav class="nav-row" aria-label="منوی اصلی">
           <button type="button" class="btn btn-outline active" id="nav-home" onclick="navigateTo('home')">صفحه اصلی و املاک</button>
+          <button type="button" class="btn btn-outline" id="nav-search" onclick="navigateTo('search')">جستجوی ملکیت و تبلیغات</button>
           <button type="button" class="btn btn-outline" id="nav-register" onclick="navigateTo('register')">ثبت ملکیت جدید</button>
           <button type="button" class="btn btn-outline" id="nav-ads" onclick="navigateTo('ads')">اعلانات و تبلیغات</button>
           <button type="button" class="btn btn-gold" id="nav-admin" onclick="navigateTo('admin')">مدیریت وب‌سایت</button>
@@ -572,10 +578,11 @@
       <!-- صفحه اصلی -->
       <section id="view-home" class="view-section active">
         <div class="hero-box">
-          <h2>سامانه رسمی ثبت، معرفی و معاملات املاک — ستاره اعتماد</h2>
-          <p>تمامی معاملات و ثبت ملکیت‌ها تحت نظر دفتر رهنمای معاملات شکرالله ابراهیم خیل انجام می‌شود. شماره تماس مشتریان برای حفظ حریم خصوصی در بخش عمومی نمایش داده نمی‌شود و ارتباط صرفاً از طریق شماره‌های رسمی دفتر صورت می‌گیرد.</p>
+          <h2>سامانه رسمی ثبت، جستجو و معاملات املاک — ستاره اعتماد</h2>
+          <p>مشتریان محترم می‌توانند ملکیت‌های ثبت‌شده و تبلیغات منتشرشده را جستجو و مشاهده کنند. شماره تماس مشتریان و تصویر قولنامه/قباله در بخش عمومی نمایش داده نمی‌شوند و ارتباط مشتریان از طریق شماره‌های رسمی دفتر انجام می‌گیرد.</p>
           <div style="display:flex; flex-wrap:wrap; gap:8px;">
-            <button type="button" class="btn btn-gold" onclick="navigateTo('register')">ثبت آنلاین ملکیت</button>
+            <button type="button" class="btn btn-gold" onclick="navigateTo('search')">جستجوی ملکیت و تبلیغات</button>
+            <button type="button" class="btn btn-outline btn-sm" onclick="navigateTo('register')">ثبت آنلاین ملکیت</button>
             <button type="button" class="btn btn-outline btn-sm" onclick="copySectionLink('home')">کپی لینک صفحه اصلی</button>
           </div>
         </div>
@@ -585,6 +592,84 @@
             <h3 class="card-title">فهرست ملکیت‌های ثبت‌شده</h3>
           </div>
           <div class="grid-3" id="publicPropertiesGrid"></div>
+        </div>
+      </section>
+
+      <!-- بخش جستجو برای مشتریان -->
+      <section id="view-search" class="view-section">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">جستجوی ملکیت‌ها و تبلیغات برای مشتریان</h2>
+            <button type="button" class="btn btn-dark btn-sm" onclick="copySectionLink('search')">کپی لینک بخش جستجو</button>
+          </div>
+
+          <div class="grid-4">
+            <div class="form-group">
+              <label for="searchKeyword">جستجو با کلمه کلیدی (موقعیت، عنوان، توضیحات)</label>
+              <input type="text" id="searchKeyword" class="form-control" placeholder="مثال: تایمنی، دکان، اعلان..." oninput="runCustomerSearch()" />
+            </div>
+
+            <div class="form-group">
+              <label for="searchPropType">نوع ملکیت</label>
+              <select id="searchPropType" class="form-control" onchange="runCustomerSearch()">
+                <option value="ALL">همه انواع ملکیت</option>
+                <option value="خانه">خانه</option>
+                <option value="حولی">حولی</option>
+                <option value="آپارتمان">آپارتمان</option>
+                <option value="دکان">دکان</option>
+                <option value="زمین">زمین</option>
+                <option value="سایر ملکیت‌ها">سایر ملکیت‌ها</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="searchDealType">نوع معامله</label>
+              <select id="searchDealType" class="form-control" onchange="runCustomerSearch()">
+                <option value="ALL">همه معاملات</option>
+                <option value="خرید">خرید</option>
+                <option value="فروش">فروش</option>
+                <option value="کرایی">کرایی</option>
+                <option value="گروی (بیع وفا)">گروی (بیع وفا)</option>
+                <option value="اجاره">اجاره</option>
+                <option value="شراکت‌آباد">شراکت‌آباد</option>
+                <option value="سایر قراردادها">سایر قراردادها</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="searchProvince">ولایت</label>
+              <select id="searchProvince" class="form-control" onchange="runCustomerSearch()">
+                <option value="ALL">همه ولایات</option>
+                <option value="کابل">کابل</option>
+                <option value="هرات">هرات</option>
+                <option value="بلخ">بلخ</option>
+                <option value="ننگرهار">ننگرهار</option>
+                <option value="قندهار">قندهار</option>
+                <option value="کندز">کندز</option>
+                <option value="غزنی">غزنی</option>
+                <option value="سایر ولایات">سایر ولایات</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:6px;">
+            <button type="button" class="btn btn-gold btn-sm" onclick="runCustomerSearch()">اعمال جستجو</button>
+            <button type="button" class="btn btn-outline btn-sm" style="color:var(--navy); border-color:var(--navy);" onclick="resetCustomerSearch()">پاک کردن فیلترها</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">نتایج جستجو — ملکیت‌های ثبت‌شده</h3>
+          </div>
+          <div class="grid-3" id="searchPropsResults"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">نتایج جستجو — تبلیغات و اعلانات منتشرشده</h3>
+          </div>
+          <div class="grid-2" id="searchAdsResults"></div>
         </div>
       </section>
 
@@ -679,7 +764,7 @@
                 <input type="file" id="propImage" class="form-control" accept="image/*" required />
               </div>
               <div class="form-group">
-                <label for="contractImage">تصویر قولنامه یا سند (اختیاری)</label>
+                <label for="contractImage">تصویر قولنامه یا قباله (اختیاری — فقط در پنل مدیریت دیده می‌شود)</label>
                 <input type="file" id="contractImage" class="form-control" accept="image/*" />
               </div>
             </div>
@@ -849,7 +934,7 @@
 
             <!-- تب مدیریت ملکیت‌ها -->
             <div id="pane-properties" class="admin-pane">
-              <h3 style="margin-top:0; color:var(--navy);">مدیریت ملکیت‌ها (شماره تماس مشتری فقط در این بخش نمایش داده می‌شود)</h3>
+              <h3 style="margin-top:0; color:var(--navy);">مدیریت ملکیت‌ها (شماره تماس مشتری و عکس قولنامه/قباله فقط در این بخش نمایش داده می‌شود)</h3>
               <div class="table-wrap">
                 <table>
                   <thead>
@@ -858,7 +943,7 @@
                       <th>مشتری و شماره تماس واقعی</th>
                       <th>نوع ملکیت و معامله</th>
                       <th>ولایت و موقعیت</th>
-                      <th>قولنامه و سند</th>
+                      <th>قولنامه / قباله و سند</th>
                       <th>وضعیت</th>
                       <th>عملیات</th>
                     </tr>
@@ -912,7 +997,7 @@
 
   <script>
     (function () {
-      var STORAGE_KEY = "setareh_etemad_official_v2";
+      var STORAGE_KEY = "setareh_etemad_official_v3";
 
       function makePlaceholderSvg(text, bg, fg) {
         var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360">' +
@@ -1042,7 +1127,7 @@
       }
 
       window.navigateTo = function (target) {
-        var allowed = ["home", "register", "ads", "admin"];
+        var allowed = ["home", "search", "register", "ads", "admin"];
         if (allowed.indexOf(target) === -1) {
           target = "home";
         }
@@ -1293,6 +1378,51 @@
         renderAll();
       };
 
+      window.runCustomerSearch = function () {
+        var kwEl = document.getElementById("searchKeyword");
+        var ptEl = document.getElementById("searchPropType");
+        var dtEl = document.getElementById("searchDealType");
+        var pvEl = document.getElementById("searchProvince");
+
+        var kw = (kwEl ? kwEl.value : "").trim().toLowerCase();
+        var pt = ptEl ? ptEl.value : "ALL";
+        var dt = dtEl ? dtEl.value : "ALL";
+        var pv = pvEl ? pvEl.value : "ALL";
+
+        var matchedProps = state.properties.filter(function (p) {
+          if (!p.visible) return false;
+          if (pt !== "ALL" && p.propType !== pt) return false;
+          if (dt !== "ALL" && p.dealType !== dt) return false;
+          if (pv !== "ALL" && p.province !== pv) return false;
+          if (kw) {
+            var hay = [p.propType, p.dealType, p.province, p.location, p.contractType, p.price, p.desc].join(" ").toLowerCase();
+            if (hay.indexOf(kw) === -1) return false;
+          }
+          return true;
+        });
+
+        var matchedAds = state.ads.filter(function (ad) {
+          if (!kw) return true;
+          var hay = [ad.category, ad.title, ad.body, ad.contact].join(" ").toLowerCase();
+          return hay.indexOf(kw) !== -1;
+        });
+
+        renderPublicPropsToContainer(document.getElementById("searchPropsResults"), matchedProps, "ملکیتی مطابق جستجوی شما یافت نشد.");
+        renderPublicAdsToContainer(document.getElementById("searchAdsResults"), matchedAds, "تبلیغ یا اعلانی مطابق جستجوی شما یافت نشد.");
+      };
+
+      window.resetCustomerSearch = function () {
+        var kwEl = document.getElementById("searchKeyword");
+        var ptEl = document.getElementById("searchPropType");
+        var dtEl = document.getElementById("searchDealType");
+        var pvEl = document.getElementById("searchProvince");
+        if (kwEl) kwEl.value = "";
+        if (ptEl) ptEl.value = "ALL";
+        if (dtEl) dtEl.value = "ALL";
+        if (pvEl) pvEl.value = "ALL";
+        runCustomerSearch();
+      };
+
       function hexToRgb(hex) {
         var clean = (hex || "#eef2f6").replace("#", "");
         if (clean.length === 3) {
@@ -1353,13 +1483,12 @@
         if (regForm) regForm.style.display = app.registerEnabled ? "block" : "none";
       }
 
-      function renderPublicProps() {
-        var grid = document.getElementById("publicPropertiesGrid");
+      // نمایش عمومی ملکیت‌ها: بدون شماره تماس مشتری و بدون تصویر قولنامه/قباله
+      function renderPublicPropsToContainer(grid, list, emptyMsg) {
         if (!grid) return;
 
-        var list = state.properties.filter(function (p) { return p.visible; });
-        if (list.length === 0) {
-          grid.innerHTML = "<p>در حال حاضر ملکیتی برای نمایش وجود ندارد.</p>";
+        if (!list || list.length === 0) {
+          grid.innerHTML = "<p>" + escapeHtml(emptyMsg || "در حال حاضر ملکیتی برای نمایش وجود ندارد.") + "</p>";
           return;
         }
 
@@ -1383,7 +1512,7 @@
             (p.desc ? '<p style="margin:0; font-size:13px;">' + escapeHtml(p.desc) + "</p>" : "") +
             "</div>" +
             '<div class="office-contact-box">' +
-            "<div><strong>تماس با دفتر معاملات (شماره مشتری محرمانه است):</strong></div>" +
+            "<div><strong>تماس با دفتر معاملات:</strong></div>" +
             '<div class="phones-wrap" style="margin-top:6px;">' + officeChips + "</div>" +
             "</div>" +
             "</article>";
@@ -1391,18 +1520,17 @@
         grid.innerHTML = html;
       }
 
-      function renderPublicAds() {
-        var grid = document.getElementById("publicAdsGrid");
+      function renderPublicAdsToContainer(grid, list, emptyMsg) {
         if (!grid) return;
 
-        if (!state.ads || state.ads.length === 0) {
-          grid.innerHTML = "<p>اعلان یا تبلیغی ثبت نشده است.</p>";
+        if (!list || list.length === 0) {
+          grid.innerHTML = "<p>" + escapeHtml(emptyMsg || "اعلان یا تبلیغی ثبت نشده است.") + "</p>";
           return;
         }
 
         var html = "";
-        for (var i = 0; i < state.ads.length; i++) {
-          var ad = state.ads[i];
+        for (var i = 0; i < list.length; i++) {
+          var ad = list[i];
           var isGeneral = (ad.category || "").indexOf("آزاد") !== -1 || (ad.category || "").indexOf("عمومی") !== -1;
           html += '<article class="item-card">' +
             (ad.image ? '<img class="item-img" src="' + ad.image + '" alt="تصویر تبلیغ" />' : "") +
@@ -1438,7 +1566,6 @@
         if (uInp && document.activeElement !== uInp) uInp.value = state.admin.username;
         if (pInp && document.activeElement !== pInp) pInp.value = state.admin.password;
 
-        // پس‌زمینه فرم
         var colorPicker = document.getElementById("bgColorPicker");
         var rangeEl = document.getElementById("bgOverlayRange");
         if (colorPicker && document.activeElement !== colorPicker) {
@@ -1449,7 +1576,6 @@
         }
         updateOverlayPreview();
 
-        // لیست اعلانات و تبلیغات در پنل مدیریت
         var adsListEl = document.getElementById("adminAdsList");
         if (adsListEl) {
           if (state.ads.length === 0) {
@@ -1471,7 +1597,7 @@
           }
         }
 
-        // جدول ملکیت‌ها
+        // در پنل مدیریت: شماره تماس مشتری و عکس قولنامه/قباله برای مدیر قابل مشاهده است
         var propsBody = document.getElementById("adminPropsBody");
         if (propsBody) {
           if (state.properties.length === 0) {
@@ -1485,7 +1611,7 @@
                 "<td><strong>" + escapeHtml(p.customerName) + '</strong><br><span dir="ltr">' + escapeHtml(p.customerPhone) + "</span></td>" +
                 "<td>" + escapeHtml(p.propType) + " / " + escapeHtml(p.dealType) + "</td>" +
                 "<td>" + escapeHtml(p.province) + " — " + escapeHtml(p.location) + "</td>" +
-                "<td>" + escapeHtml(p.contractType) + (p.contractImage ? '<br><a href="' + p.contractImage + '" target="_blank">مشاهده عکس قولنامه</a>' : "<br>بدون عکس قولنامه") + "</td>" +
+                "<td>" + escapeHtml(p.contractType) + (p.contractImage ? '<br><a href="' + p.contractImage + '" target="_blank">مشاهده عکس قولنامه/قباله</a>' : "<br>بدون عکس قولنامه/قباله") + "</td>" +
                 "<td>" + (p.visible ? "نمایش عمومی" : "مخفی") + "</td>" +
                 "<td>" +
                 '<button type="button" class="btn btn-dark btn-sm" onclick="togglePropertyVisibility(\'' + p.id + '\')" style="margin-bottom:4px;">تغییر وضعیت</button> ' +
@@ -1497,11 +1623,11 @@
           }
         }
 
-        // لینک‌های بخش‌ها و تنظیمات دفتر
         var linksWrap = document.getElementById("adminSectionLinks");
         if (linksWrap) {
           var secs = [
             { key: "home", title: "لینک صفحه اصلی و املاک" },
+            { key: "search", title: "لینک بخش جستجوی مشتریان" },
             { key: "register", title: "لینک فرم ثبت ملکیت جدید" },
             { key: "ads", title: "لینک بخش اعلانات و تبلیغات" },
             { key: "admin", title: "لینک بخش مدیریت وب‌سایت" }
@@ -1533,8 +1659,17 @@
 
       function renderAll() {
         renderAppearance();
-        renderPublicProps();
-        renderPublicAds();
+        renderPublicPropsToContainer(
+          document.getElementById("publicPropertiesGrid"),
+          state.properties.filter(function (p) { return p.visible; }),
+          "در حال حاضر ملکیتی برای نمایش وجود ندارد."
+        );
+        renderPublicAdsToContainer(
+          document.getElementById("publicAdsGrid"),
+          state.ads,
+          "اعلان یا تبلیغی ثبت نشده است."
+        );
+        runCustomerSearch();
         renderAdmin();
       }
 
