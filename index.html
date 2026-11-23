@@ -1,1 +1,397 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ستاره اعتماد | دفتر رهنمای معاملات شکرالله ابراهیم خیل — املاک</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Vazirmatn', 'Tahoma', 'sans-serif'],
+          },
+          colors: {
+            navy: {
+              850: '#0c1c3d',
+              900: '#08132b',
+              950: '#040a18',
+            },
+            gold: {
+              300: '#fde047',
+              400: '#facc15',
+              500: '#eab308',
+              600: '#ca8a04',
+            },
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+      font-family: 'Vazirmatn', Tahoma, sans-serif;
+    }
+    .gold-glow {
+      box-shadow: 0 10px 30px -10px rgba(234, 179, 8, 0.35);
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #94a3b8;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased selection:bg-amber-200 selection:text-navy-950 min-h-screen flex flex-col">
 
+  <!-- Toast Notification Banner (No alert/confirm dialogs used anywhere) -->
+  <div id="toast-container" class="fixed top-4 left-4 z-[70] flex flex-col gap-2 max-w-sm w-full pointer-events-none"></div>
+
+  <!-- Top Official Header -->
+  <header class="bg-gradient-to-l from-navy-950 via-navy-900 to-emerald-950 text-white shadow-xl border-b-2 border-gold-500/80 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+      <!-- Brand Emblem & Official Title -->
+      <div class="flex items-center gap-3.5">
+        <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-gold-300 via-gold-500 to-amber-700 p-0.5 shadow-lg shrink-0">
+          <div class="w-full h-full rounded-full bg-navy-950 flex items-center justify-center overflow-hidden">
+            <svg viewBox="0 0 100 100" class="w-12 h-12" aria-label="لوگوی ستاره اعتماد — املاک">
+              <circle cx="50" cy="50" r="45" fill="none" stroke="#facc15" stroke-width="3" />
+              <rect x="31" y="20" width="8" height="22" rx="1" fill="#eab308" />
+              <rect x="44" y="13" width="12" height="29" rx="1" fill="#fde047" />
+              <rect x="61" y="22" width="8" height="20" rx="1" fill="#eab308" />
+              <polygon points="50,24 56,39 72,39 59,49 64,64 50,55 36,64 41,49 28,39 44,39" fill="#facc15" stroke="#08132b" stroke-width="1.2" />
+              <polygon points="31,75 50,58 69,75" fill="#10b981" />
+              <rect x="37" y="73" width="26" height="14" rx="1.5" fill="#0f172a" stroke="#facc15" stroke-width="1.5" />
+              <rect x="46" y="77" width="8" height="7" fill="#facc15" />
+            </svg>
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <h1 class="text-lg sm:text-xl font-black text-gold-400 tracking-tight">ستاره اعتماد — املاک</h1>
+            <span class="text-[11px] bg-emerald-800/80 text-emerald-200 border border-emerald-500/40 px-2.5 py-0.5 rounded-full font-semibold">
+              لینک رسمی و آنلاین
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-200 font-medium mt-0.5">
+            دفتر رهنمای معاملات شکرالله ابراهیم خیل — ستاره اعتماد — املاک
+          </p>
+        </div>
+      </div>
+
+      <!-- Navigation & Quick Links -->
+      <nav class="flex flex-wrap items-center gap-1.5 sm:gap-2.5 text-xs sm:text-sm">
+        <button type="button" data-nav-view="public" class="nav-view-btn px-3 py-2 rounded-xl hover:bg-white/10 text-slate-100 transition font-semibold cursor-pointer">
+          پورتال عمومی
+        </button>
+        <button type="button" data-nav-view="register" class="nav-view-btn px-3 py-2 rounded-xl hover:bg-white/10 text-slate-100 transition font-semibold cursor-pointer">
+          ثبت ملکیت مشتری
+        </button>
+        <a href="#listings-section" class="px-3 py-2 rounded-xl hover:bg-white/10 text-slate-100 transition font-semibold">
+          جستجو و ملکیت‌ها
+        </a>
+        <button
+          id="header-copy-link-btn"
+          type="button"
+          class="px-3 py-2 rounded-xl bg-emerald-800/70 hover:bg-emerald-700 border border-emerald-500/40 text-emerald-100 transition font-bold cursor-pointer"
+        >
+          کاپی لینک برای مشتری
+        </button>
+        <button
+          id="open-admin-btn"
+          type="button"
+          class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-gold-400 to-amber-500 hover:from-gold-300 hover:to-amber-400 text-navy-950 font-extrabold shadow-md transition flex items-center gap-1.5 cursor-pointer"
+        >
+          <span>مدیریت سایت</span>
+          <span id="admin-status-dot" class="w-2.5 h-2.5 rounded-full bg-navy-950 inline-block"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="bg-gradient-to-b from-navy-900 via-navy-850 to-emerald-950 text-white border-b-4 border-gold-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-9 sm:py-12 grid grid-cols-1 lg:grid-cols-12 gap-7 items-center">
+      <div class="lg:col-span-7 space-y-4 text-center lg:text-right">
+        <div class="inline-flex items-center gap-2 bg-gold-500/15 border border-gold-400/40 text-gold-300 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold">
+          <span>★</span>
+          <span>دفتر رهنمای معاملات شکرالله ابراهیم خیل — ستاره اعتماد — املاک</span>
+        </div>
+
+        <h2 id="hero-headline" class="text-2xl sm:text-4xl font-black leading-tight text-white">
+          معاملات مطمئن ملکی با <span class="text-gold-400">شفافیت کامل و حفظ حریم خصوصی</span>
+        </h2>
+
+        <p id="hero-subheadline" class="text-slate-200 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto lg:mx-0">
+          ارائه خدمات خرید، فروش، کرایه، گرویی، بیع وفا، شراکت، آباد و سایر معاملات ملکی همراه با ثبت اسناد (قباله شرعی، قباله عرفی و سایر). شماره تماس مشتریان در جستجوی عمومی کاملاً محفوظ بوده و تنها شماره تماس رسمی دفتر نمایش داده می‌شود.
+        </p>
+
+        <!-- Services Badges -->
+        <div class="flex flex-wrap justify-center lg:justify-start gap-2 pt-1">
+          <span class="bg-white/10 border border-white/15 px-3 py-1 rounded-xl text-xs font-bold text-gold-300">خرید</span>
+          <span class="bg-white/10 border border-white/15 px-3 py-1 rounded-xl text-xs font-bold text-gold-300">فروش</span>
+          <span class="bg-white/10 border border-white/15 px-3 py-1 rounded-xl text-xs font-bold text-emerald-300">کرایه</span>
+          <span class="bg-white/10 border border-white/15 px-3 py-1 rounded-xl text-xs font-bold text-emerald-300">گرویی</span>
+          <span class="bg-white/10 border border-white/15 px-3 py-1 rounded-xl text-xs font-bold text-gold-300">بیع وفا</span>
+          <span class="bg-white/10 border border-white/15 px-3 py-1 rounded-xl text-xs font-bold text-emerald-300">شراکت</span>
+          <span class="bg-white/10 border border-white/15 px-3 py-1 rounded-xl text-xs font-bold text-gold-300">آباد</span>
+          <span class="bg-white/10 border border-white/15 px-3 py-1 rounded-xl text-xs font-bold text-slate-200">سایر</span>
+        </div>
+
+        <!-- Primary CTAs -->
+        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
+          <button
+            type="button"
+            data-nav-view="register"
+            class="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-sm shadow-lg transition cursor-pointer"
+          >
+            ثبت ملکیت جدید (همراه با عکس ملکیت)
+          </button>
+          <a href="#listings-section" class="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-bold text-sm transition">
+            جستجو در فهرست ملکیت‌ها
+          </a>
+          <button
+            id="hero-open-admin-btn"
+            type="button"
+            class="px-4 py-3 rounded-xl bg-gold-500/20 hover:bg-gold-500/30 border border-gold-400/50 text-gold-300 font-bold text-sm transition cursor-pointer"
+          >
+            ورود مدیر سایت
+          </button>
+        </div>
+      </div>
+
+      <!-- Official Office Contact & Privacy Card -->
+      <div class="lg:col-span-5">
+        <div class="bg-navy-950/90 border border-gold-500/50 rounded-2xl p-5 sm:p-6 shadow-2xl space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div>
+              <h3 class="text-base sm:text-lg font-extrabold text-gold-400">شماره‌های تماس رسمی دفتر</h3>
+              <p class="text-xs text-slate-400">مدیریت: شکرالله ابراهیم خیل</p>
+            </div>
+            <span class="bg-emerald-900/80 text-emerald-300 border border-emerald-600/40 text-xs px-2.5 py-1 rounded-lg font-bold">
+              پاسخگویی مستقیم
+            </span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-center" dir="ltr">
+            <a href="tel:0705875878" class="bg-navy-900 hover:bg-emerald-950 border border-slate-700 hover:border-gold-400 rounded-xl py-2 px-2 text-xs sm:text-sm font-extrabold text-gold-300 transition">
+              0705875878
+            </a>
+            <a href="tel:0792928897" class="bg-navy-900 hover:bg-emerald-950 border border-slate-700 hover:border-gold-400 rounded-xl py-2 px-2 text-xs sm:text-sm font-extrabold text-gold-300 transition">
+              0792928897
+            </a>
+            <a href="tel:0731364644" class="bg-navy-900 hover:bg-emerald-950 border border-slate-700 hover:border-gold-400 rounded-xl py-2 px-2 text-xs sm:text-sm font-extrabold text-gold-300 transition">
+              0731364644
+            </a>
+            <a href="tel:0777514602" class="bg-navy-900 hover:bg-emerald-950 border border-slate-700 hover:border-gold-400 rounded-xl py-2 px-2 text-xs sm:text-sm font-extrabold text-gold-300 transition">
+              0777514602
+            </a>
+            <a href="tel:0747789284" class="bg-navy-900 hover:bg-emerald-950 border border-slate-700 hover:border-gold-400 rounded-xl py-2 px-2 text-xs sm:text-sm font-extrabold text-gold-300 transition col-span-2 sm:col-span-1">
+              0747789284
+            </a>
+          </div>
+
+          <div class="bg-emerald-950/70 border border-emerald-700/40 rounded-xl p-3 text-xs text-emerald-100 leading-relaxed">
+            <strong>حفظ حریم خصوصی مشتریان:</strong> شماره تماس مشتری که ملکیت ثبت می‌کند در جستجوی عمومی به دیگران نشان داده نمی‌شود؛ در جستجو فقط شماره رسمی دفتر نمایش داده می‌شود تا ارتباط از طریق دفتر انجام شود.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto w-full px-4 sm:px-6 py-8 space-y-8 flex-1">
+
+    <!-- Active Announcements Banner -->
+    <section id="announcements-section" class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 sm:p-6">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-100 pb-3.5 mb-4">
+        <div class="flex items-center gap-2.5">
+          <span class="w-9 h-9 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center font-black text-base">!</span>
+          <div>
+            <h3 class="text-lg sm:text-xl font-extrabold text-navy-900">اعلانات و اطلاعیه‌های رسمی دفتر</h3>
+            <p class="text-xs text-slate-500">مدیریت‌شده توسط مدیر سایت دفتر رهنمای معاملات ستاره اعتماد</p>
+          </div>
+        </div>
+        <span id="announcements-count-badge" class="text-xs bg-slate-100 text-slate-700 px-3 py-1 rounded-full font-bold self-start sm:self-auto">
+          ۰ اعلان فعال
+        </span>
+      </div>
+      <div id="public-announcements-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </section>
+
+    <!-- Property Registration Section (Customer Submission) -->
+    <section id="register-section" class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div class="bg-gradient-to-l from-navy-900 to-emerald-900 text-white px-5 sm:px-7 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <div>
+          <h3 class="text-lg sm:text-xl font-extrabold text-gold-400">بخش ثبت ملکیت مشتری</h3>
+          <p class="text-xs sm:text-sm text-slate-200">
+            اسم مشتری، شماره تماس، نوع ملکیت، نوع معامله، نوع قباله، تصویر ضروری ملکیت و تصویر اختیاری قباله را ثبت کنید.
+          </p>
+        </div>
+        <span id="registration-status-pill" class="text-xs bg-emerald-800/80 border border-emerald-400/40 text-emerald-100 px-3 py-1 rounded-full font-bold self-start sm:self-auto">
+          ثبت ملکیت فعال است
+        </span>
+      </div>
+
+      <div id="registration-disabled-box" class="hidden p-6 sm:p-8 text-center bg-amber-50/70">
+        <p class="text-sm sm:text-base font-bold text-amber-950 mb-2">
+          بخش ثبت آنلاین ملکیت توسط مدیریت سایت موقتاً غیرفعال شده است.
+        </p>
+        <p class="text-xs sm:text-sm text-amber-800">
+          برای ثبت ملکیت با شماره‌های رسمی دفتر ستاره اعتماد تماس بگیرید.
+        </p>
+      </div>
+
+      <form id="client-property-form" class="p-5 sm:p-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Customer Name (Required) -->
+        <div>
+          <label for="reg-client-name" class="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5">
+            اسم مشتری <span class="text-rose-600">*</span>
+          </label>
+          <input
+            id="reg-client-name"
+            name="clientName"
+            type="text"
+            required
+            placeholder="مثال: شکرالله ابراهیم خیل / مشتری محترم"
+            class="w-full rounded-xl border border-slate-300 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20 px-3.5 py-2.5 text-sm outline-none transition"
+          />
+        </div>
+
+        <!-- Customer Phone (Required, Strictly Private to Admin) -->
+        <div>
+          <label for="reg-client-phone" class="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5">
+            شماره تماس مشتری <span class="text-rose-600">*</span>
+          </label>
+          <input
+            id="reg-client-phone"
+            name="clientPhone"
+            type="tel"
+            required
+            dir="ltr"
+            placeholder="07XXXXXXXX"
+            class="w-full rounded-xl border border-slate-300 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20 px-3.5 py-2.5 text-sm outline-none transition text-left"
+          />
+          <p class="text-[11px] text-emerald-700 font-semibold mt-1">
+            محفوظ است: فقط مدیر سایت می‌بیند؛ به مشتریان دیگر نشان داده نمی‌شود.
+          </p>
+        </div>
+
+        <!-- Property Type -->
+        <div>
+          <label for="reg-property-type" class="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5">
+            نوع ملکیت <span class="text-rose-600">*</span>
+          </label>
+          <select
+            id="reg-property-type"
+            name="propertyType"
+            required
+            class="w-full rounded-xl border border-slate-300 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20 px-3.5 py-2.5 text-sm outline-none transition bg-white"
+          >
+            <option value="">انتخاب نوع ملکیت...</option>
+            <option value="خانه">خانه</option>
+            <option value="زمین">زمین</option>
+            <option value="دکان">دکان</option>
+            <option value="سرای">سرای</option>
+            <option value="آپارتمان">آپارتمان</option>
+            <option value="باغ/مزرعه">باغ/مزرعه</option>
+            <option value="سایر">سایر</option>
+          </select>
+        </div>
+
+        <!-- Transaction Type -->
+        <div>
+          <label for="reg-deal-type" class="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5">
+            نوع معامله <span class="text-rose-600">*</span>
+          </label>
+          <select
+            id="reg-deal-type"
+            name="dealType"
+            required
+            class="w-full rounded-xl border border-slate-300 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20 px-3.5 py-2.5 text-sm outline-none transition bg-white"
+          >
+            <option value="">انتخاب نوع معامله...</option>
+            <option value="گرویی">گرویی</option>
+            <option value="کرایی">کرایی</option>
+            <option value="فروشی">فروشی</option>
+            <option value="بیع وفا">بیع وفا</option>
+            <option value="شراکت">شراکت</option>
+            <option value="آباد">آباد</option>
+            <option value="سایر">سایر</option>
+          </select>
+        </div>
+
+        <!-- Deed / Document Type -->
+        <div>
+          <label for="reg-doc-type" class="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5">
+            نوع قباله / سند ملکیت <span class="text-rose-600">*</span>
+          </label>
+          <select
+            id="reg-doc-type"
+            name="docType"
+            required
+            class="w-full rounded-xl border border-slate-300 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20 px-3.5 py-2.5 text-sm outline-none transition bg-white"
+          >
+            <option value="">انتخاب نوع قباله...</option>
+            <option value="قباله شرعی">قباله شرعی</option>
+            <option value="قباله عرفی">قباله عرفی</option>
+            <option value="سایر">سایر</option>
+          </select>
+        </div>
+
+        <!-- Location & Price -->
+        <div>
+          <label for="reg-location" class="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5">
+            آدرس / ناحیه یا منطقه <span class="text-rose-600">*</span>
+          </label>
+          <input
+            id="reg-location"
+            name="location"
+            type="text"
+            required
+            placeholder="مثال: کابل، ناحیه دهم، قلعه فتح‌الله"
+            class="w-full rounded-xl border border-slate-300 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20 px-3.5 py-2.5 text-sm outline-none transition"
+          />
+        </div>
+
+        <div>
+          <label for="reg-price" class="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5">
+            قیمت / مبلغ پیشنهادی یا توافقی
+          </label>
+          <input
+            id="reg-price"
+            name="price"
+            type="text"
+            placeholder="مثال: توافقی یا مبلغ پیشنهادی"
+            class="w-full rounded-xl border border-slate-300 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20 px-3.5 py-2.5 text-sm outline-none transition"
+          />
+        </div>
+
+        <!-- REQUIRED Property Image -->
+        <div class="sm:col-span-2 lg:col-span-1 bg-amber-50/60 border border-amber-300/80 rounded-2xl p-3.5">
+          <label for="reg-property-image" class="block text-xs sm:text-sm font-extrabold text-navy-900 mb-1">
+            تصویر ملکیت <span class="text-rose-600">(ضروری *)</span>
+          </label>
+          <input
+            id="reg-property-image"
+            name="propertyImage"
+            type="file"
+            accept="image/*"
+            required
+            class="block w-full text-xs text-slate-700 file:ml-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-navy-900 file:text-gold-300 hover:file:bg-navy-850 cursor-pointer"
+          />
+          <div
